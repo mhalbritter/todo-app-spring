@@ -2,7 +2,6 @@ package todoapp.storage.datajdbc;
 
 import java.util.List;
 
-import org.jspecify.annotations.Nullable;
 import todoapp.domain.Priority;
 import todoapp.domain.TodoEntry;
 import todoapp.domain.TodoEntryRepository;
@@ -34,7 +33,7 @@ class SpringDataJdbcTodoEntryRepository implements TodoEntryRepository {
     }
 
     @Override
-    public @Nullable TodoEntry findWithId(TodoEntry.Id id) {
+    public TodoEntry findWithId(TodoEntry.Id id) {
         return this.repository.findById(id.id()).map(TodoEntryEntity::toDomain).orElse(null);
     }
 
@@ -55,7 +54,7 @@ class SpringDataJdbcTodoEntryRepository implements TodoEntryRepository {
     }
 
     @Override
-    public List<TodoEntry> findWithPriority(@Nullable Priority priority) {
+    public List<TodoEntry> findWithPriority(Priority priority) {
         return TodoEntryEntity.toDomain(this.repository.findAllByPriority((priority == null) ? null : priority.name()));
     }
 }

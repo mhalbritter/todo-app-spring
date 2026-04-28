@@ -3,7 +3,6 @@ package todoapp.storage.datajdbc;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.jspecify.annotations.Nullable;
 import todoapp.domain.Priority;
 import todoapp.domain.Status;
 import todoapp.domain.TodoEntry;
@@ -15,7 +14,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * @author Moritz Halbritter
  */
 @Table("TODO")
-record TodoEntryEntity(@Id long id, String title, String status, @Nullable String description, @Nullable String assignee, @Nullable String priority, @Nullable LocalDateTime dueDate) {
+record TodoEntryEntity(@Id long id, String title, String status, String description, String assignee, String priority, LocalDateTime dueDate) {
     static List<TodoEntry> toDomain(List<TodoEntryEntity> entities) {
         return entities.stream().map(TodoEntryEntity::toDomain).toList();
     }

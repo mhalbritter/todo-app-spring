@@ -3,7 +3,6 @@ package todoapp.uijava;
 import java.util.List;
 import java.util.Map;
 
-import org.jspecify.annotations.Nullable;
 import todoapp.domain.Priority;
 import todoapp.domain.Status;
 import todoapp.domain.TodoEntry;
@@ -66,7 +65,7 @@ class TodoUiController {
         return entries.stream().filter((e) -> e.status() == status).toList();
     }
 
-    private List<TodoEntry> filterWaiting(List<TodoEntry> entries, @Nullable Priority priority) {
+    private List<TodoEntry> filterWaiting(List<TodoEntry> entries, Priority priority) {
         return entries.stream().filter((e) -> e.status() == Status.WAITING && e.priority() == priority).toList();
     }
 
@@ -81,9 +80,9 @@ class TodoUiController {
         @PathVariable long id,
         @RequestParam String title,
         @RequestParam String status,
-        @RequestParam @Nullable String description,
-        @RequestParam @Nullable String assignee,
-        @RequestParam @Nullable String priority
+        @RequestParam String description,
+        @RequestParam String assignee,
+        @RequestParam String priority
     ) {
         TodoEntry entry = this.todos.findById(TodoEntry.Id.of(id));
         entry = entry.withTitle(title);

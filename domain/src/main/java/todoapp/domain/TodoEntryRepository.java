@@ -2,8 +2,6 @@ package todoapp.domain;
 
 import java.util.List;
 
-import org.jspecify.annotations.Nullable;
-
 /**
  * @author Moritz Halbritter
  */
@@ -12,7 +10,6 @@ public interface TodoEntryRepository {
 
     List<TodoEntry> findAllEntries();
 
-    @Nullable
     TodoEntry findWithId(TodoEntry.Id id);
 
     void insertEntry(TodoEntry todoEntry);
@@ -21,5 +18,5 @@ public interface TodoEntryRepository {
 
     void deleteEntry(TodoEntry todoEntry);
 
-    List<TodoEntry> findWithPriority(@Nullable Priority priority);
+    List<TodoEntry> findWithPriority(Priority priority);
 }
