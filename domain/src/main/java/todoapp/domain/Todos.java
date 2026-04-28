@@ -89,6 +89,25 @@ public class Todos {
         return new AssigneeReport(map);
     }
 
+    @Transactional(readOnly = true)
+    public PriorityReport createPriorityReport() {
+        Map<String, List<TodoEntry>> map = new LinkedHashMap<>();
+        List<TodoEntry> noPriority = new ArrayList<>();
+        List<TodoEntry> allEntriesWithPriorities = this.repository.findAllEntries();
+        for (TodoEntry entry : allEntriesWithPriorities) {
+            if (hasPriority(entry)) {
+                map.computeIfAbsent(entry.priority().name(), (_) -> new ArrayList<>()).add(entry);
+            } else {
+                noPriority.add(entry);
+            }
+        }
+        return new PriorityReport(map, noPriority);
+    }
+
+    private boolean hasPriority(TodoEntry entry) {
+        return entry.priority() != null;
+    }
+
     /**
      * Assignee report.
      *
@@ -100,6 +119,9 @@ public class Todos {
                 return new AssigneeEntry(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
             }
         }
+    }
+
+    public record PriorityReport(Map<String, List<TodoEntry>> map, List<TodoEntry> noPriority) {
     }
 
     public static class TodoEntryNotFoundException extends RuntimeException {
