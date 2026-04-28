@@ -16,8 +16,24 @@ public record TodoEntry(
     @Nullable Priority priority,
     @Nullable LocalDateTime dueDate
 ) {
-    TodoEntry withStatus(Status status) {
+    public TodoEntry withStatus(Status status) {
         return new TodoEntry(this.id, this.title, status, this.description, this.assignee, this.priority, this.dueDate);
+    }
+
+    public TodoEntry withTitle(String title) {
+        return new TodoEntry(this.id, title, this.status, this.description, this.assignee, this.priority, this.dueDate);
+    }
+
+    public TodoEntry withDescription(@Nullable String description) {
+        return new TodoEntry(this.id, this.title, this.status, description, this.assignee, this.priority, this.dueDate);
+    }
+
+    public TodoEntry withAssignee(@Nullable String assignee) {
+        return new TodoEntry(this.id, this.title, this.status, this.description, assignee, this.priority, this.dueDate);
+    }
+
+    public TodoEntry withPriority(@Nullable Priority priority) {
+        return new TodoEntry(this.id, this.title, this.status, this.description, this.assignee, priority, this.dueDate);
     }
 
     public record Id(long id) {

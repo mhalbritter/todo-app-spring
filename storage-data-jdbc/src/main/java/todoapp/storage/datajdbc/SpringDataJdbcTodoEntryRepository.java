@@ -2,6 +2,7 @@ package todoapp.storage.datajdbc;
 
 import java.util.List;
 
+import todoapp.domain.Priority;
 import todoapp.domain.TodoEntry;
 import todoapp.domain.TodoEntryRepository;
 
@@ -51,5 +52,10 @@ class SpringDataJdbcTodoEntryRepository implements TodoEntryRepository {
     @Override
     public void deleteEntry(TodoEntry todoEntry) {
         this.repository.deleteById(todoEntry.id().id());
+    }
+
+    @Override
+    public List<TodoEntry> findWithPriority(@Nullable Priority priority) {
+        return TodoEntryEntity.toDomain(this.repository.findAllByPriority((priority == null) ? null : priority.name()));
     }
 }

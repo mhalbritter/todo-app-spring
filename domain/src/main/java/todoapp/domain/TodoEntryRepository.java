@@ -20,4 +20,6 @@ public interface TodoEntryRepository {
     void updateEntry(TodoEntry todoEntry);
 
     void deleteEntry(TodoEntry todoEntry);
+
+    List<TodoEntry> findWithPriority(@Nullable Priority priority);
 }

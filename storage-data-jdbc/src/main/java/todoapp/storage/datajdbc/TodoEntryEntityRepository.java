@@ -1,5 +1,7 @@
 package todoapp.storage.datajdbc;
 
+import java.util.List;
+
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.lang.Nullable;
@@ -13,4 +15,6 @@ interface TodoEntryEntityRepository extends ListCrudRepository<TodoEntryEntity, 
     @Query("SELECT MAX(t.id) FROM todo t")
     @Nullable
     Long findMaxId();
+
+    List<TodoEntryEntity> findAllByPriority(String priority);
 }

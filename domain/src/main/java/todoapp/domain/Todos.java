@@ -49,6 +49,26 @@ public class Todos {
         return updatedEntry;
     }
 
+    @Transactional(readOnly = true)
+    public TodoEntry findById(TodoEntry.Id id) {
+        TodoEntry entry = this.repository.findWithId(id);
+        if (entry == null) {
+            throw new TodoEntryNotFoundException(id);
+        }
+        return entry;
+    }
+
+    @Transactional
+    public TodoEntry updateEntry(TodoEntry entry) {
+        this.repository.updateEntry(entry);
+        return entry;
+    }
+
+    @Transactional(readOnly = true)
+    public List<TodoEntry> findEntriesWithPriority(Priority priority) {
+        return this.repository.findWithPriority(priority);
+    }
+
     public static class TodoEntryNotFoundException extends RuntimeException {
         TodoEntryNotFoundException(TodoEntry.Id id) {
             super("Todo entry with id %s not found".formatted(id));
