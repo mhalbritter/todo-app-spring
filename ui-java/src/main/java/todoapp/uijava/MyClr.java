@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import todoapp.domain.Priority;
 import todoapp.domain.TodoEntry;
 import todoapp.domain.Todos;
 
@@ -39,8 +40,16 @@ class MyClr implements CommandLineRunner {
 
     private void insertEntries() {
         List<TodoEntry> entries = this.todos.findAllEntries();
-        if (entries.isEmpty()) {
-            this.todos.addEntry("Record JSpecify video");
+        if (!entries.isEmpty()) {
+            return;
         }
+        TodoEntry trash = this.todos.addEntry("Take out trash");
+        this.todos.updateEntry(trash.withAssignee("Alice").withPriority(Priority.MEDIUM));
+        TodoEntry cleanBathroom = this.todos.addEntry("Clean bathroom");
+        this.todos.updateEntry(cleanBathroom.withAssignee("Bob").withPriority(Priority.MEDIUM));
+        TodoEntry lightBulb = this.todos.addEntry("Fix cellar light bulb");
+        this.todos.updateEntry(lightBulb.withAssignee("Bob").withPriority(Priority.LOW));
+        TodoEntry hornetNest = this.todos.addEntry("Remove hornet nest");
+        this.todos.updateEntry(hornetNest.withAssignee("Charlie"));
     }
 }
