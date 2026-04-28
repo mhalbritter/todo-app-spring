@@ -1,0 +1,5 @@
+spring:
+    application:
+        name: 'todoapp-cli-kotlin'
+    datasource:
+        url: 'jdbc:h2:./todoapp'

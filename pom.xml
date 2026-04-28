@@ -34,6 +34,7 @@
         <module>domain</module>
         <module>storage-data-jdbc</module>
         <module>ui-java</module>
+        <module>cli-kotlin</module>
     </modules>
     <dependencyManagement>
         <dependencies>
