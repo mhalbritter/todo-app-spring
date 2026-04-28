@@ -2,12 +2,12 @@ package todoapp.storage.datajdbc;
 
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
 import todoapp.domain.Priority;
 import todoapp.domain.TodoEntry;
 import todoapp.domain.TodoEntryRepository;
 
 import org.springframework.data.jdbc.core.JdbcAggregateOperations;
-import org.springframework.lang.Nullable;
 
 /**
  * @author Moritz Halbritter

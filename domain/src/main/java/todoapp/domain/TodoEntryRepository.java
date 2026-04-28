@@ -2,7 +2,7 @@ package todoapp.domain;
 
 import java.util.List;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author Moritz Halbritter

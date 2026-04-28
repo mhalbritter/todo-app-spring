@@ -2,9 +2,10 @@ package todoapp.storage.datajdbc;
 
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
+
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 /**

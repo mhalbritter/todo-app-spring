@@ -3,13 +3,13 @@ package todoapp.storage.datajdbc;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
 import todoapp.domain.Priority;
 import todoapp.domain.Status;
 import todoapp.domain.TodoEntry;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.lang.Nullable;
 
 /**
  * @author Moritz Halbritter

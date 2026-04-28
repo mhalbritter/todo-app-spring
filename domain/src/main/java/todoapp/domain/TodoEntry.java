@@ -2,7 +2,7 @@ package todoapp.domain;
 
 import java.time.LocalDateTime;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author Moritz Halbritter
