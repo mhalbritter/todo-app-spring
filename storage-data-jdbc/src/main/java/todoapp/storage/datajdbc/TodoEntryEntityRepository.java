@@ -17,5 +17,5 @@ interface TodoEntryEntityRepository extends ListCrudRepository<TodoEntryEntity, 
     @Nullable
     Long findMaxId();
 
-    List<TodoEntryEntity> findAllByPriority(String priority);
+    List<TodoEntryEntity> findAllByPriority(@Nullable String priority);
 }

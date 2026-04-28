@@ -5,6 +5,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jspecify.annotations.Nullable;
+
+import org.springframework.lang.Contract;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -74,7 +77,7 @@ public class Todos {
 
     @Transactional(readOnly = true)
     public AssigneeReport createAssigneeReport() {
-        Map<String, AssigneeReport.AssigneeEntry> map = new LinkedHashMap<>();
+        Map<@Nullable String, AssigneeReport.AssigneeEntry> map = new LinkedHashMap<>();
         List<TodoEntry> allEntries = this.repository.findAllEntries();
         map.put(null, AssigneeReport.AssigneeEntry.empty());
         for (TodoEntry entry : allEntries) {
@@ -95,7 +98,7 @@ public class Todos {
         List<TodoEntry> noPriority = new ArrayList<>();
         List<TodoEntry> allEntriesWithPriorities = this.repository.findAllEntries();
         for (TodoEntry entry : allEntriesWithPriorities) {
-            if (hasPriority(entry)) {
+            if (hasPriority(entry.priority())) {
                 map.computeIfAbsent(entry.priority().name(), (_) -> new ArrayList<>()).add(entry);
             } else {
                 noPriority.add(entry);
@@ -104,8 +107,9 @@ public class Todos {
         return new PriorityReport(map, noPriority);
     }
 
-    private boolean hasPriority(TodoEntry entry) {
-        return entry.priority() != null;
+    @Contract("null -> false")
+    private boolean hasPriority(@Nullable Priority priority) {
+        return priority != null;
     }
 
     /**
@@ -113,7 +117,7 @@ public class Todos {
      *
      * @param map maps from assignee to assignee entries. Key can be {@code null}!
      */
-    public record AssigneeReport(Map<String, AssigneeEntry> map) {
+    public record AssigneeReport(Map<@Nullable String, AssigneeEntry> map) {
         public record AssigneeEntry(List<TodoEntry> completed, List<TodoEntry> inProgress, List<TodoEntry> waiting) {
             static AssigneeEntry empty() {
                 return new AssigneeEntry(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
