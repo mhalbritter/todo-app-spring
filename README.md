@@ -8,3 +8,11 @@ A simple todo app built with Spring Boot
 ```
 
 See https://docs.openrewrite.org/recipes/java/jspecify/migratefromspringframeworkannotations
+
+## Nullability plugin
+
+https://ik.am/entries/900/en
+
+## Nullability plugin configuration
+
+https://github.com/making/nullability-maven-plugin#configuration
