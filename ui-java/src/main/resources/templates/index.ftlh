@@ -3,7 +3,8 @@
 
 <#include "header.inc.ftlh">
 
-<a href="/add" class="button">Add new</a>
+<a href="add" class="button success">Add new</a>
+<a href="assignee-report" class="button">Report</a>
 
 <#if model.high()?has_content>
     <h2>High priority</h2>

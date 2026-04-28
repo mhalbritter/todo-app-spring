@@ -1,6 +1,9 @@
 package todoapp.domain;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,6 +70,36 @@ public class Todos {
     @Transactional(readOnly = true)
     public List<TodoEntry> findEntriesWithPriority(Priority priority) {
         return this.repository.findWithPriority(priority);
+    }
+
+    @Transactional(readOnly = true)
+    public AssigneeReport createAssigneeReport() {
+        Map<String, AssigneeReport.AssigneeEntry> map = new LinkedHashMap<>();
+        List<TodoEntry> allEntries = this.repository.findAllEntries();
+        map.put(null, AssigneeReport.AssigneeEntry.empty());
+        for (TodoEntry entry : allEntries) {
+            AssigneeReport.AssigneeEntry assigneeEntry = map.computeIfAbsent(entry.assignee(), (_) -> AssigneeReport.AssigneeEntry.empty());
+            List<TodoEntry> listToAdd = switch (entry.status()) {
+                case WAITING -> assigneeEntry.waiting();
+                case IN_PROGRESS -> assigneeEntry.inProgress();
+                case COMPLETED -> assigneeEntry.completed();
+            };
+            listToAdd.add(entry);
+        }
+        return new AssigneeReport(map);
+    }
+
+    /**
+     * Assignee report.
+     *
+     * @param map maps from assignee to assignee entries. Key can be {@code null}!
+     */
+    public record AssigneeReport(Map<String, AssigneeEntry> map) {
+        public record AssigneeEntry(List<TodoEntry> completed, List<TodoEntry> inProgress, List<TodoEntry> waiting) {
+            static AssigneeEntry empty() {
+                return new AssigneeEntry(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+            }
+        }
     }
 
     public static class TodoEntryNotFoundException extends RuntimeException {

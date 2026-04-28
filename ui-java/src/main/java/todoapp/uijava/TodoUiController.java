@@ -56,6 +56,12 @@ class TodoUiController {
         return new RedirectView("/");
     }
 
+    @GetMapping("/assignee-report")
+    public ModelAndView assigneeReport() {
+        Todos.AssigneeReport report = this.todos.createAssigneeReport();
+        return new ModelAndView("assignee-report", Map.of("model", new AssigneeReportModel(report)));
+    }
+
     private List<TodoEntry> filter(List<TodoEntry> entries, Status status) {
         return entries.stream().filter((e) -> e.status() == status).toList();
     }
@@ -93,5 +99,8 @@ class TodoUiController {
     }
 
     public record DetailsModel(TodoEntry entry) {
+    }
+
+    public record AssigneeReportModel(Todos.AssigneeReport report) {
     }
 }
