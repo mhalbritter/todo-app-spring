@@ -21,7 +21,7 @@ public record TodoEntry(
     }
 
     public record Id(long id) {
-        static Id of(long id) {
+        public static Id of(long id) {
             return new Id(id);
         }
     }

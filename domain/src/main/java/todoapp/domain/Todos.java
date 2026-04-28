@@ -2,6 +2,8 @@ package todoapp.domain;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * @author Moritz Halbritter
  */
@@ -12,18 +14,21 @@ public class Todos {
         this.repository = repository;
     }
 
-    List<TodoEntry> findAllEntries() {
+    @Transactional(readOnly = true)
+    public List<TodoEntry> findAllEntries() {
         return this.repository.findAllEntries();
     }
 
-    TodoEntry addEntry(String title) {
+    @Transactional
+    public TodoEntry addEntry(String title) {
         TodoEntry.Id id = this.repository.generateId();
         TodoEntry entry = new TodoEntry(id, title, Status.WAITING, null, null, null, null);
         this.repository.insertEntry(entry);
         return entry;
     }
 
-    TodoEntry startEntry(TodoEntry.Id id) {
+    @Transactional
+    public TodoEntry startEntry(TodoEntry.Id id) {
         TodoEntry entry = this.repository.findWithId(id);
         if (entry == null) {
             throw new TodoEntryNotFoundException(id);
@@ -33,7 +38,8 @@ public class Todos {
         return updatedEntry;
     }
 
-    TodoEntry completeEntry(TodoEntry.Id id) {
+    @Transactional
+    public TodoEntry completeEntry(TodoEntry.Id id) {
         TodoEntry entry = this.repository.findWithId(id);
         if (entry == null) {
             throw new TodoEntryNotFoundException(id);

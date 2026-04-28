@@ -12,6 +12,15 @@
     <dependencies>
 
         <dependency>
+            <groupId>todoapp</groupId>
+            <artifactId>todoapp-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>todoapp</groupId>
+            <artifactId>todoapp-storage-data-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>

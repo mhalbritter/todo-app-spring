@@ -35,5 +35,18 @@
         <module>storage-data-jdbc</module>
         <module>ui-java</module>
     </modules>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>todoapp</groupId>
+                <artifactId>todoapp-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>todoapp</groupId>
+                <artifactId>todoapp-storage-data-jdbc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
